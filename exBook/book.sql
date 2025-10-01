@@ -1,10 +1,5 @@
 show tables;
-drop database hrdtest;
-drop database shopmember;
-create database hrdtest;
 USE hrdtest;
-
-DROP TABLE IF EXISTS book;
  
 
 drop table Rental;

@@ -1,8 +1,5 @@
 SHOW TABLES;
-
-SHOW TABLES FROM employee;
-
-drop table employee;
+USE hrdtest;
 
 create table employee(
 	EmpNo int auto_increment primary key,
@@ -13,7 +10,7 @@ create table employee(
     CONSTRAINT chk_salary CHECK (Salary >= 2000000)
 );
 
-select * from employee;
+select * from hrdtest;
 drop table employee;
 
 -- name: ex1

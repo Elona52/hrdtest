@@ -8,25 +8,35 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBConnection {
-
-    static String URL = "jdbc:mariadb://localhost:3306/hrdtest";
-    static String USER = "root";
-    static String PASSWORD = "1234";
-
-    // MariaDB 연결
-    public static Connection getConnection() {
-        Connection conn = null;
+	
+	static String URL = "jdbc:mariadb://localhost:3306/hrdtest";
+	static String USER = "root";
+	static String PASSWORD = "1234";
+	
+	static {
         try {
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("=========== MariaDB 연결 성공 ==========");
-        } catch (SQLException e) {
+            Class.forName("org.mariadb.jdbc.Driver");
+            System.out.println("=================== MariaDB 드라이버 로드 성공 ====================");
+        } catch (ClassNotFoundException e) {
+            System.err.println("MariaDB JDBC 드라이버 로드 실패");
             e.printStackTrace();
-            System.out.println("=========== DB 연결 실패 ================");
         }
-        return conn;
+    }
+	
+
+	public static Connection getConnection() {
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("===================== MariaDB 연결 성공 ======================");
+            return conn;
+        } catch (SQLException e) {
+            System.err.println("=========== DB 연결 실패 ================");
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    
+	
     // Statement + Connection 자원 반납
     public static void close(Statement stmt, Connection conn) {
         try { if (stmt != null) stmt.close(); 
@@ -65,5 +75,5 @@ public class DBConnection {
         } catch (SQLException e) { 
         	e.printStackTrace(); }
     }
-}
 	
+}
